@@ -33,5 +33,5 @@ func lookup(name string, usego bool, network string) {
 		fmt.Fprintf(os.Stderr, "Could not get IPs: %v\n", err)
 		os.Exit(1)
 	}
-	fmt.Printf("duration: % name %v num IPs found %v    usego:%v network:%v\n", tt, name, len(ips), r.PreferGo, network)
+	fmt.Printf("duration: %v name %v num IPs found %v    usego:%v network:%v\n", tt, name, len(ips), r.PreferGo, network)
 }
