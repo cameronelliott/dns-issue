@@ -21,9 +21,15 @@ func main() {
 func lookup(name string, usego bool, network string) {
 	ctx := context.Background()
 
-	r := net.Resolver{
-		PreferGo:     usego,
-		StrictErrors: false,
+	r := &net.Resolver{
+		PreferGo: usego,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+			d := net.Dialer{
+				Timeout: time.Millisecond * time.Duration(10000),
+			}
+			println("creating resolver for network:", network)
+			return d.DialContext(ctx, network, "8.8.8.8:53")
+		},
 	}
 
 	t0 := time.Now()
